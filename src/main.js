@@ -1,12 +1,13 @@
+// Оновлений main.js
 import { getImagesByQuery, imagesOnPage } from './js/pixabay-api';
 import {
-    createGallery,
-    clearGallery,
-    showLoader,
-    hideLoader,
-    showLoadMoreButton,
-    hideLoadMoreButton,
-    loadMoreElem,
+  createGallery,
+  clearGallery,
+  showLoader,
+  hideLoader,
+  showLoadMoreButton,
+  hideLoadMoreButton,
+  loadMoreElem,
 } from './js/render-functions';
 
 import iziToast from 'izitoast';
@@ -43,7 +44,7 @@ async function handleFormSubmit(event) {
       message: 'The input field is empty, try again.',
       position: 'center',
     });
-    return; // не reset, щоб користувач міг поправити введене
+    return;
   }
 
   clearGallery();
@@ -55,10 +56,10 @@ async function showImagesOnPage() {
   try {
     const data = await getImagesByQuery(inputData, page);
 
-    if (data.hits.length === 0) {
+    if (!data.hits || data.hits.length === 0) {
+      hideLoadMoreButton();
       iziToast.warning({
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
+        message: 'Sorry, there are no images matching your search query. Please try again!',
         position: 'center',
       });
       return;
@@ -83,7 +84,8 @@ async function showImagesOnPage() {
       });
     }
   } catch (error) {
-    iziToast.warning({
+    hideLoadMoreButton();
+    iziToast.error({
       message: 'An error occurred. Please try again later.',
       position: 'center',
     });

@@ -1,7 +1,10 @@
+/* Оновлений styles.css */
+
 .form {
   margin: 0 auto;
   margin-top: 30px;
   margin-bottom: 32px;
+  text-align: center;
 }
 
 .form input {
@@ -18,21 +21,19 @@
   border: transparent;
   border-radius: 8px;
   padding: 8px 16px;
-
   height: 40px;
-
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 0.04em;
   color: #fff;
   background-color: #4e75ff;
-
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .load-more:hover,
@@ -41,7 +42,8 @@
 }
 
 .load-more {
-  margin: 0 auto;
+  margin: 20px auto;
+  display: block;
 }
 
 .gallery {
@@ -61,15 +63,15 @@
 
 .gallery-item:hover {
   opacity: 1;
-  scale: 1.03;
+  transform: scale(1.03);
 }
 
 .gallery-link img {
   cursor: zoom-in;
   width: 360px;
   height: 152px;
-
   object-fit: cover;
+  display: block;
 }
 
 .image-descr {
@@ -96,8 +98,25 @@
   color: #2e2f42;
 }
 
-/* iziToast */
+/* Лоадер */
+.loader {
+  display: block;
+  margin: 20px auto;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #ccc;
+  border-top-color: #4e75ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* iziToast */
 .iziToast-capsule .iziToast.iziToast-color-orange {
   background: none;
   background-color: #ef4040;
