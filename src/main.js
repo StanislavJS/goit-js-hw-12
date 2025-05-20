@@ -25,11 +25,12 @@ formElem.addEventListener('submit', handleFormSubmit);
 if (loadMoreElem) {
   loadMoreElem.addEventListener('click', async () => {
     page++;
-
     hideLoadMoreButton();
     await showImagesOnPage();
     scrollWin(0, heightScroll);
   });
+} else {
+  console.warn('Load More button element not found!');
 }
 
 async function handleFormSubmit(event) {
@@ -42,8 +43,7 @@ async function handleFormSubmit(event) {
       message: 'The input field is empty, try again.',
       position: 'center',
     });
-    formElem.reset();
-    return;
+    return; // не reset, щоб користувач міг поправити введене
   }
 
   clearGallery();
@@ -61,22 +61,21 @@ async function showImagesOnPage() {
           'Sorry, there are no images matching your search query. Please try again!',
         position: 'center',
       });
-      formElem.reset();
       return;
     }
 
-    const images = data.hits;
-    createGallery(images);
+    createGallery(data.hits);
 
     liElem = document.querySelector('.gallery-item');
     if (liElem) {
       heightScroll = liElem.getBoundingClientRect().height * 2;
     }
 
-    showLoadMoreButton();
     const maxPages = Math.ceil(data.totalHits / imagesOnPage);
 
-    if (page >= maxPages) {
+    if (page < maxPages) {
+      showLoadMoreButton();
+    } else {
       hideLoadMoreButton();
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
@@ -90,7 +89,6 @@ async function showImagesOnPage() {
     });
   } finally {
     hideLoader();
-    formElem.reset();
   }
 }
 
