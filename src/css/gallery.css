@@ -117,7 +117,7 @@
 }
 
 .iziToast-capsule .iziToast > .iziToast-body .iziToast-icon.ico-warning {
-  background-image: url(../img/warn.png);
+  background-image: url(../img/icon-close.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 24px;
